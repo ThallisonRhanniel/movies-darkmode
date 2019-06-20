@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
-        <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{BD14C9B3-0D5B-4473-BB26-E0A897D957D8}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -14,7 +14,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -87,15 +87,24 @@
     <CodesignKey>iPhone Distribution</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
-    <ItemGroup>
+  <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Services\StatusBarStyleManager.cs" />
     <None Include="Entitlements.plist" />
-    <None Include="Info.plist" />
+    <None Include="Info.plist">
+      <SubType>Designer</SubType>
+    </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <ITunesArtwork Include="iTunesArtwork@1x.png" />
     <ITunesArtwork Include="iTunesArtwork@2x.png" />
-    <ITunesArtwork Include="iTunesArtwork@3x.png" />
+    <BundleResource Include="Resources\IconSearch.png" />
+    <BundleResource Include="rimouski.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="LoadMore.json" />
+    <BundleResource Include="Search.json" />
+    <BundleResource Include="SwitchDarkmode.json" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\Contents.json">
@@ -189,14 +198,155 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.2.0.839982" />
+    <PackageReference Include="CardsView">
+      <Version>2.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
+      <Version>2.7.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Refit">
+      <Version>4.6.90</Version>
+    </PackageReference>
+    <PackageReference Include="Sharpnado.Forms.HorizontalListView">
+      <Version>0.9.10</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>1.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Forms">
+      <Version>2.4.5.880-pre</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.293080" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.1.0.431" />
+    <PackageReference Include="Xamarin.HotReload">
+      <Version>1.2.5</Version>
+    </PackageReference>
+    <PackageReference Include="XF.Material">
+      <Version>1.4.1.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MoviesXF\MoviesXF.csproj">
       <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
       <Name>MoviesXF</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingHighlightsAlita.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingHighlightsBeautyATBeast.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingHighlightsBirdBox.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingHighlightsDragonBallSuperBroly.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingHighlightsGlass.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingHighlightsGreyAnatomy.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingHighlightsGuadiansG2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingHighlightsHappyDeathDay.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingHighlightsRalphBTI.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingHighlightsSpiderManSpiderVerse.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingHighlightsTombRaider.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingHighlightsVenom.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingMoviesAkira.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingMoviesButterflyEffect.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingMoviesDeadpool.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingMoviesFightClub.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingMoviesInception.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingMoviesMatrix.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingMoviesWhiteChicks.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingMoviesYourName.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingSeries13ReasonsWhy.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingSeriesBlackMirror.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingSeriesFriends.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingSeriesGot.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingSeriesLaCasaDePapel.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingSeriesPll.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingSeriesStrangerThings.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingSeriesTbbt.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PreloadingSeriesTwd.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\RottenTomatoes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\IconConfig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\IconNoPoster.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\IconPopcorn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\InternetMovieDatabase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Metacritic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\iconClose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\iconClose%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\iconClose%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

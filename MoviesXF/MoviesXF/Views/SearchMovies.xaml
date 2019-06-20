@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms"
+             xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:ffImageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:converter="clr-namespace:MoviesXF.Converter"
+             x:Name="root"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True" 
+             BackgroundColor="{DynamicResource BackgroundSearchColor}"
+             x:Class="MoviesXF.Views.SearchMovies" >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:ReplacePosterConverter x:Key="ReplacePosterConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{DynamicResource BackgroundColor}" >
+        <StackLayout HeightRequest="90"  BackgroundColor="{DynamicResource BackgroundSearchColor}">
+
+            <material:MaterialCard CornerRadius="6" Margin="10,20,10,10" Elevation="1" BackgroundColor="{DynamicResource BackgroundMaterialTextFieldColor}" HeightRequest="50" HorizontalOptions="FillAndExpand" Padding="0"  >
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"   VerticalOptions="FillAndExpand">
+                <material:MaterialTextField 
+                    x:Name="TextFieldSearch"
+                    Placeholder="Search for Movies, Series"
+                    Style="{DynamicResource MaterialTextFieldStyle}"
+                    Text="{Binding SearchParameter}"
+                    VerticalOptions="Fill"
+                    ShouldAnimateUnderline="False"
+
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="30"
+                    Margin="10,0,15,10"/>
+                    <StackLayout BackgroundColor="#448AFF">
+                        <lottie:AnimationView 
+                            x:Name="AnimationSearch" 
+                            Animation="Search.json"
+                            Margin="15,10,15,10"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="End"
+                            HeightRequest="25"
+                            WidthRequest="25"
+                            
+                            AutoPlay="False" Loop="False">
+                            <lottie:AnimationView.Behaviors>
+                                <behaviors:EventToCommandBehavior EventName="OnClick" Command="{Binding SearchCommand}"  CommandParameter="{x:Reference AnimationSearch} " ></behaviors:EventToCommandBehavior>
+                            </lottie:AnimationView.Behaviors>
+                        </lottie:AnimationView>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SearchCommand}" CommandParameter="{x:Reference AnimationSearch}"/>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </StackLayout>
+
+            </material:MaterialCard>
+        </StackLayout>
+
+      
+
+        <ListView ItemsSource="{Binding Items}" 
+                  SeparatorVisibility="None"
+                  x:Name="ListViewPending"
+                  IsGroupingEnabled="false"
+                  HasUnevenRows ="True"
+                  IsPullToRefreshEnabled="False"
+                  CachingStrategy="RetainElement"
+                  AbsoluteLayout.LayoutFlags="All" 
+                  BackgroundColor="Transparent"
+                  SelectedItem="{Binding UnSelecItem}"
+                  AbsoluteLayout.LayoutBounds="0,0,1,1">
+
+            <ListView.Behaviors>
+                <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemClickCommand}" EventArgsParameterPath="Item"></behaviors:EventToCommandBehavior>
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <material:MaterialCard CornerRadius="2" IsClickable="True" Padding="0" Margin="7,4,7,4" BackgroundColor="{DynamicResource BackgroundMaterialTextFieldColor}" Elevation="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
+                            <StackLayout Orientation="Horizontal" >
+                                <ffImageloading:CachedImage 
+                                    WidthRequest="100"
+                                    HeightRequest="150"
+                                    BitmapOptimizations="True"
+                                    Source="{Binding Poster}"
+                                    ErrorPlaceholder="IconNoPoster"
+                                    Aspect="Fill" />
+                                <StackLayout>
+                                    <Label Text="{Binding Title}" Margin="3,5,0,0" FontFamily="rimouski.ttf#rimouski" TextColor="{DynamicResource ListTitleLabelColor}" FontSize="Medium"></Label>
+                                    <Label Text="{Binding Year}" Margin="3,5,0,0" FontFamily="rimouski.ttf#rimouski" TextColor="{DynamicResource ListContentLabelColor}" FontSize="15" FontAttributes="Italic"></Label>
+                                    <Label Text="{Binding Type}" Margin="3,5,0,0" FontFamily="rimouski.ttf#rimouski" TextColor="{DynamicResource ListContentLabelColor}"  FontSize="15" FontAttributes="Italic"></Label>
+                                    
+                                </StackLayout>
+                            </StackLayout>
+                            <material:MaterialCard.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ItemClickCommand}"  CommandParameter="{Binding .}"/>
+                            </material:MaterialCard.GestureRecognizers>
+                        </material:MaterialCard>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+
+            <ListView.Footer >
+                <StackLayout VerticalOptions="FillAndExpand"  HeightRequest="70">
+                    <lottie:AnimationView                        
+                        IsVisible="{Binding IsSearching}"
+                        Animation="LoadMore.json"
+                        HeightRequest="50"
+                        x:Name="AnimationLoadMore"
+                        Margin="10"
+                        WidthRequest="50"
+                        Rotation="180"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center">
+                        <lottie:AnimationView.Behaviors>
+                            <behaviors:EventToCommandBehavior EventName="OnClick" Command="{Binding loadMoreCommand}"  CommandParameter="{x:Reference AnimationLoadMore}"></behaviors:EventToCommandBehavior>
+                        </lottie:AnimationView.Behaviors>
+                </lottie:AnimationView>
+                </StackLayout>
+               
+            </ListView.Footer>
+        </ListView>
+    </StackLayout>
+  
+</ContentPage>

@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:renderedViews="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
+             xmlns:converter="clr-namespace:MoviesXF.Converter"
+             xmlns:ui="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms"
+             xmlns:prismNavigation="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="{x:OnPlatform Default='False', iOS='True'}" 
+             BackgroundColor="{DynamicResource BarBackgroundColor}"
+             x:Class="MoviesXF.Views.FullMovieInformation">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:RemoveWhitespaceConverter x:Key="RemoveWhitespaceConverter" />
+            <converter:ReplacePosterConverter x:Key="ReplacePosterConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{DynamicResource BackgroundColor}" >
+       
+        <StackLayout  BackgroundColor="{DynamicResource BackgroundColor}"  >
+            
+            <!-- Toolbar -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  HeightRequest="56" MinimumHeightRequest="56" BackgroundColor="{DynamicResource BarBackgroundColor}">
+                <forms:CachedImage WidthRequest="25"
+                               x:Name="ClosePopup"
+                               VerticalOptions="Center"
+                               Source="iconClose.png"
+                               HorizontalOptions="Start"
+                               Margin="15,0,26,0"
+                               HeightRequest="25">
+                    <forms:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{prismNavigation:GoBack}" />
+                    </forms:CachedImage.GestureRecognizers>
+                </forms:CachedImage>
+
+                <Label Text="Movie Information"
+                   VerticalOptions="Center"                   
+                   Font="Bold,19"
+                   FontFamily="rimouski.ttf#rimouski"
+                   TextColor="White">
+                </Label>
+            </StackLayout>
+
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal"  VerticalOptions="Fill" Margin="10">
+                    <forms:CachedImage 
+                        WidthRequest="150"
+                        Source="{Binding FullMovieInformationModel.Poster, Converter={StaticResource ReplacePosterConverter}}"
+                        Aspect="Fill" />
+                    <StackLayout >
+                        <Label Text="{Binding FullMovieInformationModel.Title}"  FontFamily="rimouski.ttf#rimouski" TextColor="{DynamicResource LabelTextColor}"></Label>
+                        <Label Text="{Binding FullMovieInformationModel.Released, StringFormat='Released: {0}'}" FontAttributes="Italic" TextColor="{DynamicResource LabelTextColor}" />
+                        <Label Text="{Binding FullMovieInformationModel.Rated, StringFormat='Rated: {0}'}" FontAttributes="Italic" TextColor="{DynamicResource LabelTextColor}" />
+                        <Label Text="{Binding FullMovieInformationModel.Runtime, StringFormat='Runtime: {0}'}" FontAttributes="Italic" TextColor="{DynamicResource LabelTextColor}" />
+                        <Label Text="{Binding FullMovieInformationModel.Genre, StringFormat='Genre: {0}'}" FontAttributes="Italic" TextColor="{DynamicResource LabelTextColor}" />
+                        <Label Text="{Binding FullMovieInformationModel.Director, StringFormat='Director: {0}'}" FontAttributes="Italic" TextColor="{DynamicResource LabelTextColor}" />
+                        <Label Text="{Binding FullMovieInformationModel.Production, StringFormat='Production: {0}'}" FontAttributes="Italic" TextColor="{DynamicResource LabelTextColor}" />
+                        <Label Text="{Binding FullMovieInformationModel.Type, StringFormat='Type: {0}'}" FontAttributes="Italic" TextColor="{DynamicResource LabelTextColor}" />
+                        <Label Text="{Binding FullMovieInformationModel.Website}" FontAttributes="Bold,Italic" TextColor="{DynamicResource LabelTextWebSiteColor}"  >
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenWebSiteCommand}" CommandParameter="{Binding FullMovieInformationModel.Website}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </StackLayout>
+                
+                <ui:MaterialCard CornerRadius="3" Elevation="3" VerticalOptions="Fill" HorizontalOptions="FillAndExpand" BackgroundColor="{DynamicResource BackgroundTitleColor}" Padding="15" Margin="10,0,10,0">
+                    <Label Text="Ratings" TextColor="White" FontFamily="rimouski.ttf#rimouski" ></Label>
+                </ui:MaterialCard>
+
+                <Frame VerticalOptions="Fill" HorizontalOptions="FillAndExpand" HeightRequest="85" BackgroundColor="{DynamicResource BackgroundContentColor}" Margin="12,-12,12,10" Padding="-5,20,0,0" >
+                    <renderedViews:HorizontalListView
+                        CollectionPadding="12,8"
+                        ItemSpacing="8"
+                        ItemHeight="80"
+                        ItemWidth="100"
+                        ItemsSource="{Binding FullMovieInformationModel.Ratings}"
+                        SnapStyle="Center">
+                        <renderedViews:HorizontalListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <forms:CachedImage
+                                        HeightRequest="30"
+                                        WidthRequest="30"
+                                        HorizontalOptions="Fill"
+                                        Source="{Binding Source, Converter={StaticResource RemoveWhitespaceConverter}}"
+                                        Aspect="Fill" />
+                                        <Label Text="{Binding Value}" HorizontalOptions="Center" TextColor="{DynamicResource LabelTextColor}"></Label>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </renderedViews:HorizontalListView.ItemTemplate>
+                </renderedViews:HorizontalListView>
+
+                </Frame>
+
+
+                <ui:MaterialCard CornerRadius="3" Elevation="3"  VerticalOptions="Fill" HorizontalOptions="FillAndExpand" Padding="15" BackgroundColor="{DynamicResource BackgroundTitleColor}" Margin="10,0,10,0">
+                    <Label Text="Plot" TextColor="White" FontFamily="rimouski.ttf#rimouski"></Label>
+                </ui:MaterialCard>
+
+                <Frame VerticalOptions="Fill" HorizontalOptions="FillAndExpand" Margin="12,-12,12,10"  BackgroundColor="{DynamicResource BackgroundContentColor}">
+                    <Label Text="{Binding FullMovieInformationModel.Plot}" FontFamily="rimouski.ttf#rimouski" TextColor="{DynamicResource LabelTextColor}" ></Label>
+                </Frame>
+
+                <ui:MaterialCard CornerRadius="3" Elevation="3" VerticalOptions="Fill" HorizontalOptions="FillAndExpand" Padding="15"  BackgroundColor="{DynamicResource BackgroundTitleColor}" Margin="10,0,10,0">
+                    <Label Text="Actors" TextColor="White" FontFamily="rimouski.ttf#rimouski" ></Label>
+                </ui:MaterialCard>
+
+                <Frame VerticalOptions="Fill" HorizontalOptions="FillAndExpand" Margin="12,-12,12,10" BackgroundColor="{DynamicResource BackgroundContentColor}" >
+                    <Label Text="{Binding FullMovieInformationModel.Actors}" FontFamily="rimouski.ttf#rimouski" TextColor="{DynamicResource LabelTextColor}" />
+                </Frame>
+
+        </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

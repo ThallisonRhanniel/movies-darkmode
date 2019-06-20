@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+            prism:ViewModelLocator.AutowireViewModel="True"
+            BarBackgroundColor="{DynamicResource BackgroundSearchColor}"
+            BarTextColor="White"
+
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            xmlns:views="clr-namespace:MoviesXF.Views"
+            android:TabbedPage.IsSwipePagingEnabled="False"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            android:TabbedPage.BarItemColor="{DynamicResource BarItemColor}"
+            android:TabbedPage.BarSelectedItemColor="{DynamicResource BarSelectedItemColor}"
+
+            x:Class="MoviesXF.Views.TabbedMainPage">
+
+
+    <views:MainPage Title="Home" Icon="IconPopcorn.png"  ></views:MainPage>
+
+    <!--<views:FullMovieInformation Title="Schedule1" Icon="icon.png"></views:FullMovieInformation>-->
+
+    <views:SearchMovies Title="Search"  Icon="IconSearch.png" ></views:SearchMovies>
+
+    <views:Settings Title="Settings"  Icon="IconConfig.png" ></views:Settings>
+
+    <!--<NavigationPage Title="View A" Icon="icon.png">
+        <x:Arguments>
+            <views:SearchMovies Title="Search" ></views:SearchMovies>
+        </x:Arguments>
+    </NavigationPage>-->
+    
+
+
+</TabbedPage>

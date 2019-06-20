@@ -1,6 +1,9 @@
 ﻿using Foundation;
+using Lottie.Forms.iOS.Renderers;
+using PanCardView.iOS;
 using Prism;
 using Prism.Ioc;
+using Sharpnado.Presentation.Forms.iOS;
 using UIKit;
 
 
@@ -21,9 +24,14 @@ namespace MoviesXF.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+            CardsViewRenderer.Preserve();
             global::Xamarin.Forms.Forms.Init();
+            XF.Material.iOS.Material.Init();
+            SharpnadoInitializer.Initialize();
             LoadApplication(new App(new iOSInitializer()));
 
+            AnimationViewRenderer.Init();
             return base.FinishedLaunching(app, options);
         }
     }

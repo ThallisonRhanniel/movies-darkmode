@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             ios:Page.UseSafeArea="{x:OnPlatform Default='False', iOS='True'}" 
+             BackgroundColor="{DynamicResource BarBackgroundColor}"
+             x:Class="MoviesXF.Views.Settings">
+    
+    <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{DynamicResource BackgroundColor}" >
+       
+        <StackLayout  BackgroundColor="{DynamicResource BackgroundColor}"  >
+            
+            <!-- Toolbar -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  HeightRequest="56" MinimumHeightRequest="56" BackgroundColor="{DynamicResource BarBackgroundColor}">
+                
+
+                <Label Text="Settings"
+                   VerticalOptions="Center"  
+                   Margin="15,0,0,0"
+                   Font="Bold,19"
+                   FontFamily="rimouski.ttf#rimouski"
+                   TextColor="White">
+                </Label>
+            </StackLayout>
+
+            
+            <material:MaterialCard CornerRadius="2" VerticalOptions="Fill"  Padding="0" Margin="7,4,7,4" BackgroundColor="{DynamicResource BackgroundMaterialTextFieldColor}" Elevation="3"  >
+                <StackLayout Orientation="Horizontal" Padding="0">
+                    <StackLayout >
+                        <Label Text="Dark Theme"
+                               VerticalOptions="Center"  
+                               Margin="15,15,15,5"
+                               Font="Bold,19"
+                               FontFamily="rimouski.ttf#rimouski"
+                               TextColor="{DynamicResource LabelTextColor}"/>
+                        <Label Text="Enable Dark Theme throughout the app"
+                               VerticalOptions="Center"  
+                               Margin="15,0,0,15"
+                               Font="Italic,13"
+                               FontFamily="rimouski.ttf#rimouski"
+                               TextColor="{DynamicResource LabelTextColor}"/>
+                    </StackLayout>
+                    <lottie:AnimationView 
+                        x:Name="AnimationDarkMode"
+                        Animation="SwitchDarkmode.json"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="CenterAndExpand"
+                        HeightRequest="70"
+                        Scale="1.5"
+                        WidthRequest="70"
+                        AutoPlay="False" Loop="False">
+                        <lottie:AnimationView.Behaviors>
+                            <behaviors:EventToCommandBehavior EventName="OnClick" Command="{Binding SwitchToDarkModeCommand}"  CommandParameter="{x:Reference AnimationDarkMode} " ></behaviors:EventToCommandBehavior>
+                        </lottie:AnimationView.Behaviors>
+                    </lottie:AnimationView>
+                </StackLayout>
+            </material:MaterialCard>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

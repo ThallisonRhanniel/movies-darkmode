@@ -2,10 +2,78 @@
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
+             xmlns:ui="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material.Forms"
              x:Class="MoviesXF.App">
-	<Application.Resources>
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- MainPage -->
+            <Color x:Key="BarItemColor">SlateGray</Color>
+            <Color x:Key="BarSelectedItemColor">White</Color>
+            <Color x:Key="BarBackgroundColor">#3F51B5</Color>
+            <Color x:Key="TextColor">Black</Color>
+            <!-- BackGround -->
+            <Color x:Key="BackgroundColor">#f2f2f2</Color>
+            <!-- Search Movies-->
+            <Color x:Key="BackgroundSearchColor">#3F51B5</Color>
+            <Color x:Key="BackgroundMaterialTextFieldColor">White</Color>
+            <!-- FullMoviewInformation -->
+            <Color x:Key="LabelTextColor">DimGray</Color>
+            <Color x:Key="LabelTextWebSiteColor">#0d47a1</Color>
+            <Color x:Key="BackgroundTitleColor">#455a64</Color>
+            <Color x:Key="BackgroundContentColor">White</Color>
+            <!-- ListMovies -->
+            <Color x:Key="ListTitleLabelColor">Black</Color>
+            <Color x:Key="ListContentLabelColor">Gray</Color>
+            
 
-		<!-- Application resource dictionary -->
+            <Style x:Key="DefaultLabelMainPageStyle" TargetType="Label">
+                <Setter Property="Margin"  Value="{x:OnPlatform Default='10', iOS='10,10,10,17'}" />
+                <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
+                <Setter Property="FontFamily" Value="rimouski.ttf#rimouski"></Setter>
+                <Setter Property="FontSize" Value="Medium"></Setter>
+            </Style>
 
-	</Application.Resources>
+            <Style x:Key="MaterialTextFieldStyle" TargetType="ui:MaterialTextField" >
+                <Setter Property="TextColor" Value="Black"></Setter>
+                <Setter Property="TintColor" Value="Black"></Setter>
+                <Setter Property="PlaceholderColor" Value="Black"></Setter>
+                <Setter Property="AlwaysShowUnderline" Value="False"></Setter>
+                <Setter Property="InputType" Value="Default"></Setter>
+                <Setter Property="FloatingPlaceholderColor" Value="Black"></Setter>
+                <Setter Property="TextFontFamily" Value="rimouski.ttf#rimouski"></Setter>
+                <Setter Property="PlaceholderFontFamily" Value="rimouski.ttf#rimouski"></Setter>
+                <Setter Property="BackgroundColor" Value="Transparent"></Setter>
+            </Style>
+
+            <Style x:Key="DefaultMaterialTextFieldStyle" TargetType="ui:MaterialTextField" >
+                <Setter Property="TextColor" Value="Black"></Setter>
+                <Setter Property="TintColor" Value="Black"></Setter>
+                <Setter Property="FloatingPlaceholderColor" Value="Black"></Setter>
+                <Setter Property="PlaceholderColor" Value="Black"></Setter>
+                <Setter Property="AlwaysShowUnderline" Value="False"></Setter>
+                <Setter Property="InputType" Value="Default"></Setter>
+                <Setter Property="TextFontFamily" Value="rimouski.ttf#rimouski"></Setter>
+                <Setter Property="PlaceholderFontFamily" Value="rimouski.ttf#rimouski"></Setter>
+                <Setter Property="BackgroundColor" Value="Transparent"></Setter>
+            </Style>
+
+            <Style x:Key="DarkModeMaterialTextFieldStyle" TargetType="ui:MaterialTextField">
+                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="FloatingPlaceholderColor" Value="White"></Setter>
+                <Setter Property="TintColor" Value="White"></Setter>
+                <Setter Property="PlaceholderColor" Value="White"></Setter>
+                <Setter Property="AlwaysShowUnderline" Value="False"></Setter>
+                <Setter Property="InputType" Value="Default"></Setter>
+                <Setter Property="TextFontFamily" Value="rimouski.ttf#rimouski"></Setter>
+                <Setter Property="PlaceholderFontFamily" Value="rimouski.ttf#rimouski"></Setter>
+                <Setter Property="BackgroundColor" Value="Transparent"></Setter>
+            </Style>
+
+            <Style x:Key="DefaultLabelListStyle" TargetType="Label">
+                <Setter Property="Margin" Value="0,5,0,0"></Setter>
+                <Setter Property="FontFamily" Value="rimouski.ttf#rimouski"></Setter>
+                <Setter Property="FontSize" Value="Medium"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
 </prism:PrismApplication>

@@ -1,11 +1,103 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:panCardView="clr-namespace:PanCardView;assembly=PanCardView"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:renderedViews="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
              x:Class="MoviesXF.Views.MainPage"
+             x:Name="root"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="True" 
+             BackgroundColor="{DynamicResource BackgroundColor}"
              Title="{Binding Title}">
+    <ScrollView  >
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"   >
 
-    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-        <Label Text="Welcome to Xamarin Forms and Prism!" />
+            <Label Text="Highlights" Style="{DynamicResource DefaultLabelMainPageStyle}" ></Label>
+            <panCardView:CoverFlowView 
+                Margin="0,-40,0,-35"
+                PositionShiftValue="60"
+                IsCyclical="True"
+                IsAutoInteractionRunning="True"
+                IsUserInteractionRunning="True"
+                SelectedIndex="{Binding CurrentIndex}"
+                ItemsSource="{Binding ItemsHighlights}">
+            <panCardView:CoverFlowView.ItemTemplate>
+                <DataTemplate>
+                    <ContentView Padding="40">
+                        <Frame 
+                            VerticalOptions="Center"
+                            HorizontalOptions="Fill"
+                            HeightRequest="260"
+                            Padding="0" 
+                            HasShadow="false"
+                            IsClippedToBounds="true"
+                            CornerRadius="10">
+                            <forms:CachedImage Source="{Binding Poster}"  Aspect="Fill" HeightRequest="150" WidthRequest="200" DownsampleToViewSize="True">
+                                <forms:CachedImage.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ClickCommand}"  CommandParameter="{Binding .}"/>
+                                </forms:CachedImage.GestureRecognizers>
+                            </forms:CachedImage>
+                        </Frame>
+                    </ContentView>
+                </DataTemplate>
+            </panCardView:CoverFlowView.ItemTemplate>
+            </panCardView:CoverFlowView>
+
+            <Label Text="Movies"  Style="{DynamicResource DefaultLabelMainPageStyle}"></Label>
+            <renderedViews:HorizontalListView
+                Margin="0,-18,0,0"
+                CollectionPadding="10,8"
+                ItemSpacing="8"
+                ItemHeight="160"
+                ItemWidth="100"
+                ItemsSource="{Binding ItemsMovies}"
+                SnapStyle="Center">
+            <renderedViews:HorizontalListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <forms:CachedImage 
+                            Source="{Binding Poster}"
+                            DownsampleToViewSize="true"
+                            Aspect="Fill" >
+                            <forms:CachedImage.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ClickCommand}"  CommandParameter="{Binding .}"/>
+                            </forms:CachedImage.GestureRecognizers>
+                        </forms:CachedImage>
+                    </ViewCell>
+                </DataTemplate>
+            </renderedViews:HorizontalListView.ItemTemplate>
+            </renderedViews:HorizontalListView>
+
+            <Label Text="Series" Style="{DynamicResource DefaultLabelMainPageStyle}"></Label>
+            <renderedViews:HorizontalListView
+                Margin="0,-18,0,0"
+                CollectionPadding="10,8"
+                ItemSpacing="8"
+                ItemHeight="160"
+                ItemWidth="100"
+                ItemsSource="{Binding ItemsSeries}"
+                SnapStyle="Center">
+                <renderedViews:HorizontalListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <forms:CachedImage 
+                                HeightRequest="100"
+                                DownsampleToViewSize="true"
+                                Source="{Binding Poster}"
+                                Aspect="Fill" >
+                                <forms:CachedImage.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.ClickCommand}"  CommandParameter="{Binding .}"/>
+                                </forms:CachedImage.GestureRecognizers>
+                            </forms:CachedImage>
+                        </ViewCell>
+                    </DataTemplate>
+                </renderedViews:HorizontalListView.ItemTemplate>
+            </renderedViews:HorizontalListView>
+
+
+
     </StackLayout>
-
+    </ScrollView>
+   
 </ContentPage>
