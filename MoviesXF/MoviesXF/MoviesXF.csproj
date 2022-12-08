@@ -19,7 +19,7 @@
   <ItemGroup>
     <PackageReference Include="CardsView" Version="2.0.3" />
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="2.7.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Refit" Version="4.6.90" />
     <PackageReference Include="Sharpnado.Forms.HorizontalListView" Version="0.9.10" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
